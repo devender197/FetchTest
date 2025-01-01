@@ -1,7 +1,9 @@
 package com.dev.fetchtest.modules
 
 import com.dev.fetchtest.network.ApiClient
-import com.dev.fetchtest.repository.NetworkRepository
+import com.dev.fetchtest.network.ApiClientInterface
+import com.dev.fetchtest.repository.DataRepository
+import com.dev.fetchtest.repository.DataRepositoryInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,9 +15,10 @@ import javax.inject.Singleton
 object MainModule {
     @Provides
     @Singleton
-    fun provideApiClient() = ApiClient()
+    fun provideApiClient(): ApiClientInterface = ApiClient()
 
     @Provides
     @Singleton
-    fun provideNetworkRepository(apiClient: ApiClient)= NetworkRepository(apiClient)
+    fun provideDataRepository(apiClient: ApiClientInterface): DataRepositoryInterface =
+        DataRepository(apiClient)
 }

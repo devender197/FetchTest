@@ -11,11 +11,11 @@ import com.dev.fetchtest.network.model.response.DataResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class ApiClient {
+class ApiClient: ApiClientInterface {
 
     private var api: BaseApi = RetrofitBuilder.networkClient
 
-    fun getData() = call<DataResponse>(DataRequest())
+    override fun getData() = call<DataResponse>(DataRequest())
 
     private inline fun <reified T> call(model: RequestModelInterface): Flow<ApiResponse<T>> =
         flow {

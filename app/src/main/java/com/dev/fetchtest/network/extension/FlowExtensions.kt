@@ -9,9 +9,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 
-inline fun <T> emitFlow(crossinline block: suspend () -> T): Flow<T> =
-    flow { emit(block()) }.flowOn(Dispatchers.IO)
-
 inline fun <reified T> Response<*>.toApiResponse(): ApiResponse<T> = if (this.isSuccessful) {
     ApiResponse.Success(
         data = this.body() as T
@@ -19,6 +16,3 @@ inline fun <reified T> Response<*>.toApiResponse(): ApiResponse<T> = if (this.is
 } else {
     ApiResponse.Error(APIClientError.InvalidUrl())
 }
-
-inline fun <T, E : Throwable> Flow<T>.mapError(crossinline block: suspend (Throwable) -> E) =
-    catch { throw block(it) }

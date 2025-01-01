@@ -6,7 +6,7 @@ import com.dev.fetchtest.network.Utils
 import com.dev.fetchtest.network.base.ApiResponse
 import com.dev.fetchtest.network.model.response.DataResponse
 import com.dev.fetchtest.network.model.response.DataResponseItem
-import com.dev.fetchtest.repository.NetworkRepository
+import com.dev.fetchtest.repository.DataRepositoryInterface
 import com.dev.fetchtest.ui.models.DataUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val networkRepository: NetworkRepository
+    private val networkRepository: DataRepositoryInterface
 ) : ViewModel() {
 
     companion object {
@@ -46,10 +46,10 @@ class MainViewModel @Inject constructor(
         delay(SPLASH_LOADING_DURATION_MS)
 
         response.value = data
-            .filterNot { it.name.isNullOrBlank() } // filter null or blank names
-            .sortedBy { it.listId } // Sort by listId
-            .groupBy { it.listId } // Group by listId
-            .map { groupedItem -> // Transform into DataUIModel
+            .filterNot { it.name.isNullOrBlank() }
+            .sortedBy { it.listId }
+            .groupBy { it.listId }
+            .map { groupedItem ->
                 DataUIModel(
                     backgroundColor = Utils.getRandomColor(),
                     dataResponseItems = groupedItem.value

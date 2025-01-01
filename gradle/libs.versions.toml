@@ -24,6 +24,11 @@ composeCompiler = "1.5.11"
 kotlinxSerializationPlugin = "1.9.22"
 retrofitGson = "2.9.0"
 
+kotlinXCoroutinesTest = "1.7.3"
+mockitoCore = "5.4.0"
+mockitoKotlin = "4.1.0"
+androidxArch = "2.1.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -55,6 +60,14 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 retrofit-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitGson"}
+
+# mockitto test
+kotlinx-coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinXCoroutinesTest" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+
+# Android arch
+androidx-arch = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidxArch" }
 
 
 [plugins]
