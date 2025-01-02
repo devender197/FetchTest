@@ -1,28 +1,26 @@
 package com.dev.fetchtest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.dev.fetchtest.network.base.APIClientError
-import com.dev.fetchtest.network.base.ApiResponse
-import com.dev.fetchtest.network.model.response.DataResponse
-import com.dev.fetchtest.network.model.response.DataResponseItem
 import com.dev.fetchtest.repository.DataRepositoryInterface
 import com.dev.fetchtest.repository.models.DataModel
+import com.dev.fetchtest.ui.enums.UiState
+import com.dev.fetchtest.ui.model.DataUiModel
 import com.dev.fetchtest.viewmodels.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.setMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.kotlin.whenever
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModelTest {
@@ -31,63 +29,71 @@ class MainViewModelTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var networkRepository: DataRepositoryInterface
+    private lateinit var mockRepository: DataRepositoryInterface
+
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        networkRepository = mock()
-        viewModel = MainViewModel(networkRepository)
+        mockRepository = mock()
+        viewModel = MainViewModel(mockRepository)
+    }
+
+    @Test
+    fun testLoadingOnDataFromRepository() = runTest {
+        whenever(mockRepository.getData()).thenReturn(flow { emit(emptyList<DataModel>()) })
+
+        viewModel.getDataFromRepository()
+
+        assertEquals(UiState.Loading, viewModel.uiState.value)
     }
 
     @Test
     fun testSuccessOnDataFromRepository() = runTest {
-        val mockData = DataResponse().apply {
-            addAll(
-                arrayListOf(
-                    DataResponseItem(1, 1, "Test 1"),
-                    DataResponseItem(2, 2, "Test 2"),
-                    DataResponseItem(3, 1, "Another Test")
-                )
+        val mockData = List(10) { // Or use repeat with MutableList
+            DataModel(
+                id = it,
+                listId = it,
+                name = "List id $it"
             )
         }
-
-        val apiResponse = ApiResponse.Success(mockData)
-
-        whenever(networkRepository.getData()).thenReturn(flow { emit(apiResponse) })
+        whenever(mockRepository.getData()).thenReturn(flow { emit(mockData) })
 
         viewModel.getDataFromRepository()
+        advanceUntilIdle() // Process all coroutine events
 
-        advanceUntilIdle()
-
-        val expected = listOf(
-            DataModel(
+        val expectedData =  // Or use repeat with MutableList
+            DataUiModel(
                 backgroundColor = Utils.getRandomColor(),
-                dataResponseItems = listOf(
-                    DataResponseItem(1, 1, "Test 1"),
-                    DataResponseItem(3, 1, "Another Test")
-                )
-            ),
-            DataModel(
-                backgroundColor = Utils.getRandomColor(),
-                dataResponseItems = listOf(DataResponseItem(2, 2, "Test 2"))
+                dataModelList = List(10) {
+                    DataModel(
+                        id = it,
+                        listId = it,
+                        name = "List id $it"
+                    )
+                }
             )
+
+        assert(viewModel.uiState.value is UiState.Success<*>)
+        assertEquals(
+            expectedData.dataModelList.size,
+            (viewModel.uiState.value as UiState.Success<List<DataUiModel>>).data.size
         )
-        assertEquals(expected.size, viewModel.data.value.size)
     }
 
     @Test
     fun testErrorOnDataFromRepository() = runTest {
-        val apiResponse = ApiResponse.Error<DataResponse>(APIClientError.MissingModel())
-
-        whenever(networkRepository.getData()).thenReturn(flow { emit(apiResponse) })
+        whenever(mockRepository.getData()).thenReturn(flow { emit(null) })
 
         viewModel.getDataFromRepository()
+        advanceUntilIdle() // Process all coroutine events
 
-        advanceUntilIdle()
-
-        assertEquals(emptyList<DataModel>(), viewModel.data.value)
+        assert(viewModel.uiState.value is UiState.Error)
+        assertEquals(
+            "Oops something has happened!!. Please check your internet connection",
+            (viewModel.uiState.value as UiState.Error).message
+        )
     }
 
     @After
