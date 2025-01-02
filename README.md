@@ -25,15 +25,20 @@ Includes bottom navigation to switch between specific list groups.
 
 ## Network and Offline Management
   1. API Client:Utilizes Retrofit to fetch data efficiently from network sources.
-  2. Cache Manager:Implements offline support using DataStore to store and retrieve cached data.
-Ensures the application provides list data even when the device is offline.
+  2. Cache Manager:Implements offline support using DataStore to store and retrieve cached data.Ensures the application provides list data even when the device is offline.
+
+## Test case
+  Created a test class for the main view model with test data using Junit and mockito
+
+## DI
+  Used **hilt** to provide dependency injection
 
 
 ### Api Source https://fetch-hiring.s3.amazonaws.com/hiring.json.
 
 **Language**: Kotlin
 
-**Libraries**: ViewModel, Flows, Retrofit
+**Libraries**: ViewModel, Flows, Retrofit, mockito
 
 **Architecture**: MVVM
 
