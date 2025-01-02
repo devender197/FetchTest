@@ -1,13 +1,12 @@
 package com.dev.fetchtest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.dev.fetchtest.network.Utils
 import com.dev.fetchtest.network.base.APIClientError
 import com.dev.fetchtest.network.base.ApiResponse
 import com.dev.fetchtest.network.model.response.DataResponse
 import com.dev.fetchtest.network.model.response.DataResponseItem
 import com.dev.fetchtest.repository.DataRepositoryInterface
-import com.dev.fetchtest.ui.models.DataUIModel
+import com.dev.fetchtest.repository.models.DataModel
 import com.dev.fetchtest.viewmodels.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,19 +62,19 @@ class MainViewModelTest {
         advanceUntilIdle()
 
         val expected = listOf(
-            DataUIModel(
+            DataModel(
                 backgroundColor = Utils.getRandomColor(),
                 dataResponseItems = listOf(
                     DataResponseItem(1, 1, "Test 1"),
                     DataResponseItem(3, 1, "Another Test")
                 )
             ),
-            DataUIModel(
+            DataModel(
                 backgroundColor = Utils.getRandomColor(),
                 dataResponseItems = listOf(DataResponseItem(2, 2, "Test 2"))
             )
         )
-        assertEquals(expected.size, viewModel.response.value.size)
+        assertEquals(expected.size, viewModel.data.value.size)
     }
 
     @Test
@@ -88,7 +87,7 @@ class MainViewModelTest {
 
         advanceUntilIdle()
 
-        assertEquals(emptyList<DataUIModel>(), viewModel.response.value)
+        assertEquals(emptyList<DataModel>(), viewModel.data.value)
     }
 
     @After

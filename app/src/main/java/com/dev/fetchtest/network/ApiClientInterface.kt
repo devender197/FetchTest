@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ApiClientInterface {
 
-    fun getData(): Flow<ApiResponse<DataResponse>>
+    fun getData(): Flow<ApiResponse<DataResponse?>>
 }

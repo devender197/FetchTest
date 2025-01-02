@@ -39,13 +39,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.fetchtest.R
-import com.dev.fetchtest.network.Utils
+import com.dev.fetchtest.Utils
 import com.dev.fetchtest.network.model.response.DataResponseItem
-import com.dev.fetchtest.ui.models.DataUIModel
+import com.dev.fetchtest.repository.models.DataModel
+import com.dev.fetchtest.ui.model.DataUiModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun ListView(data: List<DataUIModel>) {
+fun ListView(data: List<DataUiModel>) {
     val listState = rememberLazyListState()
 
     var selectedIndex by remember { mutableIntStateOf(listState.firstVisibleItemIndex) }
@@ -112,7 +113,7 @@ fun HeaderView() {
 }
 
 @Composable
-fun ColumnScope.BodyView(listState: LazyListState, data: List<DataUIModel>) {
+fun ColumnScope.BodyView(listState: LazyListState, data: List<DataUiModel>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,7 +122,7 @@ fun ColumnScope.BodyView(listState: LazyListState, data: List<DataUIModel>) {
     ) {
         items(items = data) { item ->
             Column(modifier = Modifier.background(item.backgroundColor)) {
-                item.dataResponseItems.forEach { data ->
+                item.dataModelList.forEach { data ->
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
@@ -153,7 +154,7 @@ fun ColumnScope.BodyView(listState: LazyListState, data: List<DataUIModel>) {
 }
 
 @Composable
-fun BottomNavigationView(data: List<DataUIModel>, selectedIndex: Int, listState: LazyListState) {
+fun BottomNavigationView(data: List<DataUiModel>, selectedIndex: Int, listState: LazyListState) {
     val coroutineScope = rememberCoroutineScope()
     Row(
         modifier = Modifier
@@ -180,7 +181,7 @@ fun BottomNavigationView(data: List<DataUIModel>, selectedIndex: Int, listState:
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "List ${item.dataResponseItems.firstOrNull()?.listId ?: (index + 1)}")
+                Text(text = "List ${item.dataModelList.firstOrNull()?.listId ?: (index + 1)}")
             }
 
             Spacer(modifier = Modifier.width(6.dp.takeIf { isItemSelected } ?: 4.dp))
@@ -192,10 +193,10 @@ fun BottomNavigationView(data: List<DataUIModel>, selectedIndex: Int, listState:
 @Composable
 fun Preview_ListView() {
     val data = List(10) {
-        DataUIModel(
+        DataUiModel(
             backgroundColor = Utils.getRandomColor(),
-            dataResponseItems = List(10) { // Or use repeat with MutableList
-                DataResponseItem(
+            dataModelList = List(10) { // Or use repeat with MutableList
+                DataModel(
                     id = it,
                     listId = it,
                     name = "List id $it"

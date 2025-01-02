@@ -1,4 +1,4 @@
-package com.dev.fetchtest.network.extension
+package com.dev.fetchtest.extension
 
 import com.dev.fetchtest.network.base.APIClientError
 import com.dev.fetchtest.network.base.ApiResponse

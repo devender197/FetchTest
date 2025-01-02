@@ -28,47 +28,55 @@ kotlinXCoroutinesTest = "1.7.3"
 mockitoCore = "5.4.0"
 mockitoKotlin = "4.1.0"
 androidxArch = "2.1.0"
+datastore = "1.1.0"
 
 [libraries]
+
+# common
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-android-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
-kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-retrofit-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
-ok2curl = { group = "com.github.mrmike", name = "ok2curl", version.ref = "ok2Curl" }
-timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxProcess" }
-
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
-androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
-androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
-
-hilt-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hiltPlugin" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltPlugin" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltPlugin" }
-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
-
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
 androidx-compose-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "composeMaterial3" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
-retrofit-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitGson"}
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
-# mockitto test
+# Retrofit
+retrofit-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
+retrofit-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitGson"}
+android-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
+ok2curl = { group = "com.github.mrmike", name = "ok2curl", version.ref = "ok2Curl" }
+
+# Serilaization
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+# Navigation
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+# hilt
+hilt-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hiltPlugin" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltPlugin" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltPlugin" }
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
+
+# Android test / mockitto test
+androidx-arch = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidxArch" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinXCoroutinesTest" }
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
 
-# Android arch
-androidx-arch = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidxArch" }
-
+# datastore
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
