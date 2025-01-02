@@ -37,3 +37,13 @@ Ensures the application provides list data even when the device is offline.
 
 **Architecture**: MVVM
 
+
+## Image
+| List View | Error View | Splash View |
+|-----------|------------|-------------|
+|<img width="235" alt="Screenshot 2025-01-02 at 1 34 03 PM" src="https://github.com/user-attachments/assets/a61c3eec-11aa-416a-a85c-b05fe7b566ad" />|<img width="235" alt="Screenshot 2025-01-02 at 1 35 20 PM" src="https://github.com/user-attachments/assets/902cdf8e-8ff1-47d1-a0e4-f531d12d894a" />|<img width="240" alt="Screenshot 2025-01-02 at 1 34 33 PM" src="https://github.com/user-attachments/assets/360b746f-d096-44dc-b2cd-9a763d0d2313" />|
+
+## Video Demo
+
+Google drive link: https://drive.google.com/file/d/15eN1PlF8o-dAhF2h-EaB65kEqHenoa_s/view?usp=sharing
+
